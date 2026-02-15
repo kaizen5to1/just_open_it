@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Ishaan</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#050b18;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+color:white;
+transition:1.5s ease;
+}
+
+/* Rain */
+.rain{
+position:fixed;
+width:100%;
+height:100%;
+pointer-events:none;
+background-image:linear-gradient(to bottom,rgba(255,255,255,0.15) 1px,transparent 1px);
+background-size:2px 20px;
+animation:rain 0.4s linear infinite;
+opacity:0.2;
+}
+
+@keyframes rain{
+from{background-position:0 0;}
+to{background-position:0 20px;}
+}
+
+/* Glass Card */
+.card{
+width:90%;
+max-width:600px;
+max-height:85vh;
+overflow-y:auto;
+padding:40px;
+border-radius:25px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(25px);
+-webkit-backdrop-filter:blur(25px);
+box-shadow:0 0 40px rgba(255,255,255,0.1);
+line-height:1.8;
+font-size:17px;
+animation:fadeIn 2s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(30px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+h2{margin-bottom:20px;font-weight:400;}
+p{margin-bottom:18px;}
+
+.buttons{
+margin-top:25px;
+text-align:center;
+}
+
+button{
+padding:12px 28px;
+margin:10px;
+border:none;
+border-radius:30px;
+font-size:15px;
+cursor:pointer;
+transition:0.4s ease;
+}
+
+.yes{
+background:#00c6ff;
+color:white;
+}
+
+.no{
+background:#ff4e50;
+color:white;
+position:relative;
+}
+
+.happy{
+background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#fbc2eb,#a6c1ee);
+background-size:400% 400%;
+animation:gradient 6s ease infinite;
+}
+
+@keyframes gradient{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.message{
+margin-top:20px;
+font-size:18px;
+text-align:center;
+opacity:0;
+transition:1s;
+}
+
+.show{
+opacity:1;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="rain" id="rain"></div>
+
+<div class="card">
+
+<h2>Avanya...</h2>
+
+<p>Sach me pata nahi kaise start karu. Itna time ho gaya hai ki shayad ye message bhi ajeeb lage. Par aaj bas control nahi hua, likh raha hoon.</p>
+
+<p>Class me har din gossips karna… choti si baat ko important banana… bina wajah hasna… woh sab yaad aa raha hai.</p>
+
+<p>Tab kabhi laga hi nahi tha ki ek din aisa bhi aayega jab hum itne time tak baat hi nahi karenge.</p>
+
+<p>Main ye nahi bol raha ki sab perfect tha. Par jo bhi tha… genuine tha.</p>
+
+<p><b>Bas pls ek aakhri baar is par yes/no choose kar de. Karne se pehle ye sun — chahe kuch bhi ho jaye, tu mere liye wohi dost rahegi jaise pehle thi…</b></p>
+
+<div class="buttons">
+<button class="yes" onclick="sendResponse('Yes')">Yes</button>
+<button class="no" onclick="noClick()">No</button>
+</div>
+
+<div class="message" id="finalMessage">
+Shayad kuch cheezein badal jati hain… par kuch log kabhi purane nahi hote.
+</div>
+
+</div>
+
+<script>
+
+let noMoved=false;
+
+function sendResponse(answer){
+
+// Send to Formspree
+fetch("https://formspree.io/f/mykdwbwr",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+response:answer,
+from:"Avanya Website"
+})
+}).then(()=>{
+
+if(answer==="Yes"){
+document.body.classList.add("happy");
+document.getElementById("rain").style.display="none";
+document.getElementById("finalMessage").classList.add("show");
+}
+
+});
+
+}
+
+function noClick(){
+
+if(noMoved) {
+sendResponse("No");
+return;
+}
+
+let btn=document.querySelector(".no");
+
+btn.style.position="absolute";
+btn.style.top=Math.random()*300+"px";
+btn.style.left=Math.random()*300+"px";
+
+setTimeout(()=>{
+btn.style.position="relative";
+btn.style.top="0";
+btn.style.left="0";
+},2000);
+
+noMoved=true;
+
+}
+
+</script>
+
+</body>
+</html>
