@@ -21,10 +21,9 @@ justify-content:center;
 align-items:center;
 overflow:hidden;
 color:white;
-transition:1.5s ease;
 }
 
-/* Rain */
+/* Rain Effect */
 .rain{
 position:fixed;
 width:100%;
@@ -41,123 +40,52 @@ from{background-position:0 0;}
 to{background-position:0 20px;}
 }
 
-/* Glass Card */
+/* Center Card */
 .card{
-width:90%;
-max-width:600px;
-max-height:85vh;
-overflow-y:auto;
 padding:40px;
 border-radius:25px;
 background:rgba(255,255,255,0.08);
 backdrop-filter:blur(25px);
 -webkit-backdrop-filter:blur(25px);
 box-shadow:0 0 40px rgba(255,255,255,0.1);
-line-height:1.8;
-font-size:17px;
-animation:fadeIn 2s ease;
-}
-
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(30px);}
-to{opacity:1; transform:translateY(0);}
-}
-
-h2{margin-bottom:20px;font-weight:400;}
-p{margin-bottom:18px;}
-
-.buttons{
-margin-top:25px;
 text-align:center;
 }
 
+/* Button Style */
 button{
-padding:12px 28px;
-margin:10px;
+padding:15px 40px;
 border:none;
 border-radius:30px;
-font-size:15px;
+font-size:18px;
 cursor:pointer;
+background:#00c6ff;
+color:white;
 transition:0.4s ease;
 }
 
-.yes{
-background:#00c6ff;
-color:white;
+button:hover{
+transform:scale(1.05);
 }
 
-.no{
-background:#ff4e50;
-color:white;
-}
-
-.happy{
-background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#fbc2eb,#a6c1ee);
-background-size:400% 400%;
-animation:gradient 6s ease infinite;
-}
-
-@keyframes gradient{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
-}
 </style>
 </head>
 
 <body>
 
-<div class="rain" id="rain"></div>
+<div class="rain"></div>
 
 <div class="card">
-
-<h2>Avanya...</h2>
-
-<p>Sach me pata nahi kaise start karu. Itna time ho gaya hai ki shayad ye message bhi ajeeb lage. Par aaj bas control nahi hua, likh raha hoon.</p>
-
-<p>Class me har din gossips karna… choti si baat ko important banana… bina wajah hasna… woh sab yaad aa raha hai.</p>
-
-<p>Tab kabhi laga hi nahi tha ki ek din aisa bhi aayega jab hum itne time tak baat hi nahi karenge.</p>
-
-<p>Main ye nahi bol raha ki sab perfect tha. Par jo bhi tha… genuine tha.</p>
-
-<p><b>Bas pls ek aakhri baar is par yes/no choose kar de. Karne se pehle ye sun — chahe kuch bhi ho jaye, tu mere liye wohi dost rahegi jaise pehle thi…</b></p>
-
-<div class="buttons">
-<button class="yes" onclick="sendResponse('Yes')">Yes</button>
-<button class="no" onclick="sendResponse('No')">No</button>
+<button onclick="playAudio()">▶ Play Audio</button>
 </div>
 
 <!-- Audio File -->
 <audio id="myAudio" src="AAAAA.mp3"></audio>
 
-</div>
-
 <script>
 
-function sendResponse(answer){
-
-fetch("https://formspree.io/f/mykdwbwr",{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-response:answer,
-from:"Avanya Website"
-})
-}).then(()=>{
-
+function playAudio(){
 let audio = document.getElementById("myAudio");
 audio.play();
-
-if(answer==="Yes"){
-document.body.classList.add("happy");
-document.getElementById("rain").style.display="none";
-}
-
-});
-
 }
 
 </script>
