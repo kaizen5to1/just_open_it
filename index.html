@@ -89,7 +89,6 @@ color:white;
 .no{
 background:#ff4e50;
 color:white;
-position:relative;
 }
 
 .happy{
@@ -103,19 +102,6 @@ animation:gradient 6s ease infinite;
 50%{background-position:100% 50%;}
 100%{background-position:0% 50%;}
 }
-
-.message{
-margin-top:20px;
-font-size:18px;
-text-align:center;
-opacity:0;
-transition:1s;
-}
-
-.show{
-opacity:1;
-}
-
 </style>
 </head>
 
@@ -139,22 +125,18 @@ opacity:1;
 
 <div class="buttons">
 <button class="yes" onclick="sendResponse('Yes')">Yes</button>
-<button class="no" onclick="noClick()">No</button>
+<button class="no" onclick="sendResponse('No')">No</button>
 </div>
 
-<div class="message" id="finalMessage">
-Shayad kuch cheezein badal jati hain… par kuch log kabhi purane nahi hote.
-</div>
+<!-- Audio File -->
+<audio id="myAudio" src="AAAAA.mp3"></audio>
 
 </div>
 
 <script>
 
-let noMoved=false;
-
 function sendResponse(answer){
 
-// Send to Formspree
 fetch("https://formspree.io/f/mykdwbwr",{
 method:"POST",
 headers:{
@@ -166,36 +148,15 @@ from:"Avanya Website"
 })
 }).then(()=>{
 
+let audio = document.getElementById("myAudio");
+audio.play();
+
 if(answer==="Yes"){
 document.body.classList.add("happy");
 document.getElementById("rain").style.display="none";
-document.getElementById("finalMessage").classList.add("show");
 }
 
 });
-
-}
-
-function noClick(){
-
-if(noMoved) {
-sendResponse("No");
-return;
-}
-
-let btn=document.querySelector(".no");
-
-btn.style.position="absolute";
-btn.style.top=Math.random()*300+"px";
-btn.style.left=Math.random()*300+"px";
-
-setTimeout(()=>{
-btn.style.position="relative";
-btn.style.top="0";
-btn.style.left="0";
-},2000);
-
-noMoved=true;
 
 }
 
